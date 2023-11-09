@@ -1,20 +1,14 @@
 import React, { useState } from "react"; //상태를 사용하겠다!
+import OddEvenResult from "./OddEvenResult";
 
-//* 리렌더:
-//* Count 상태가 변할때마다 Counter함수가 다시 return 반환한다.
-//* 상태가 변화하면 화면을 다시그려 리렌더
-//* 함수가 다시 호출된다.
-const Counter = () => {
-  // 0에서 출방
-  //1씩 증가하고
-  //1씩 감소하는
-  // count 상태
+const Counter = ({ initialValue }) => {
+  // props로 받을수있따.
 
-  const [count, setCount] = useState(0);
-  // count: 상태값, setCount: 카운트라는 상태를 변화시키는 상태(변화함수)
-  //useState(0): 0은 상태를 만드는 초기 값
+  console.log(initialValue); //undefined
 
-  //누를때마다 1씩 증가
+  // console.log(props);
+  const [count, setCount] = useState(initialValue); // props 값 가져와서 초기값 설정
+
   const onIncrease = () => {
     setCount(count + 1);
   };
@@ -26,10 +20,17 @@ const Counter = () => {
   return (
     <div>
       <h2>{count}</h2> {/* 동적으로 변화해야되는 값 */}
-      <button onClick={onDecrease}>+</button>
-      <button>-</button>
+      <button onClick={onIncrease}>+</button>
+      <button onClick={onDecrease}>-</button>
+      <OddEvenResult count={count} />
     </div>
   );
+};
+
+Counter.defaultProps = {
+  //여기서 프롭스값 정해줄수있음
+  // props값을 못가져오는 오류를 해결할 수 있음
+  initialValue: 0,
 };
 
 export default Counter;
